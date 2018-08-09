@@ -5,7 +5,7 @@ import Search from "./Search.js";
 import Shelf from "./Shelf.js";
 import { Link, Route } from "react-router-dom";
 
-class ReadsApp extends React.Component {
+class App extends React.Component {
   state = {
     books: []
   };
@@ -44,7 +44,7 @@ class ReadsApp extends React.Component {
                   <h3 className="bookshelf-title">Currently Reading</h3>
                   <Shelf
                     title="currentlyReading"
-                    book={this.state.books}
+                    books={this.state.books}
                     updateBook={this.updateBook}
                   />
 
@@ -83,4 +83,4 @@ class ReadsApp extends React.Component {
     );
   }
 }
-export default ReadsApp;
+export default App;
