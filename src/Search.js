@@ -27,11 +27,11 @@ class Search extends React.Component {
         }
       });
     } else {
-      // if empty query, clear the displayed books
       this.setState({ SearchDisplay: [] });
     }
   };
   render() {
+    const { SearchDisplay } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
