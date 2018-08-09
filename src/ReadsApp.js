@@ -44,7 +44,7 @@ class ReadsApp extends React.Component {
                   <h3 className="bookshelf-title">Currently Reading</h3>
                   <Shelf
                     title="currentlyReading"
-                    book={this.state.books}
+                    books={this.state.books}
                     updateBook={this.updateBook}
                   />
 

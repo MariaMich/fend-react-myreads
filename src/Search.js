@@ -27,11 +27,11 @@ class Search extends React.Component {
         }
       });
     } else {
-      // if empty query, clear the displayed books
       this.setState({ SearchDisplay: [] });
     }
   };
   render() {
+    const { SearchDisplay } = this.state;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -51,8 +51,8 @@ class Search extends React.Component {
           </div>
           <div className="search-books-results">
             <ol className="books-grid">
-              {SearchDisplay &&
-                SearchDisplay.map(book => (
+              {this.state.SearchDisplay &&
+                this.state.SearchDisplay.map(book => (
                   <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
