@@ -5,9 +5,6 @@ import * as BooksAPI from "./BooksAPI";
 //The Search Page will show when the user clicks on the button on the Home Page
 //It is supposed to search through the list of books and find one that matches your search
 class SearchPage extends React.Component {
-  ComponentDidMount() {
-    console.log("SearchPage mounted");
-  }
   state = {
     results: [],
     query: ""
@@ -42,7 +39,7 @@ class SearchPage extends React.Component {
   };
   //Adding books to shelves
   BookAddition = (book, shelf) => {
-    this.props.onShelfMove(book, shelf);
+    this.props.onChange(book, shelf);
     book.shelf = shelf;
     this.forceUpdate();
   };
@@ -69,7 +66,7 @@ class SearchPage extends React.Component {
               type="text"
               placeholder="Search by title/author"
               variable={this.state.query}
-              onShelfMove={this.VariableUpdate}
+              onChange={this.VariableUpdate}
             />
           </div>
         </div>

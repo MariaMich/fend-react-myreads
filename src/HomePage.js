@@ -4,9 +4,6 @@ import Shelf from "./Shelf.js";
 import "./App.css";
 
 class HomePage extends React.Component {
-  ComponentDidMount() {
-    console.log("HomePage mounted");
-  }
   render() {
     const ShelfDisplay = [
       {
@@ -37,13 +34,13 @@ class HomePage extends React.Component {
                 key={shelf.type}
                 books={books.filter(book => book.shelf === shelf.type)}
                 name={shelf.name}
-                moveShelf={this.props.onShelfMove}
+                moveShelf={this.props.onChange}
               />
             ))}
           </div>
         </div>
         <div className="open-search">
-          <Link to="/Search">Search</Link>
+          <Link to="/SearchPage">Search</Link>
         </div>
       </div>
     );

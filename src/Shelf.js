@@ -6,9 +6,6 @@ class Shelf extends React.Component {
   shelfNewMove = (book, shelf) => {
     this.props.ShelfUpdate(book, shelf);
   };
-  ComponentDidMount() {
-    console.log("Shelf mounted");
-  }
 
   render() {
     const books = this.props.books;

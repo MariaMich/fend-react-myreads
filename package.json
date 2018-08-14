@@ -1,7 +1,7 @@
 {
-  "name": "fend-react-my-reads",
+  "name": "react-my-reads-app",
   "version": "0.0.53",
-  "description": null,
+  "description": "A react app made for Udacity's nanodegree.",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
@@ -9,6 +9,7 @@
     "react-bootstrap": "0.32.1",
     "react-dom": "16.3.2",
     "react-prop-types": "0.4.0",
+    "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
     "react-scripts": "1.1.4"
   },
