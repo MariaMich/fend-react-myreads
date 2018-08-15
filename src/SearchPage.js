@@ -2,84 +2,88 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Book from "./Book";
 import * as BooksAPI from "./BooksAPI";
-
-class Search extends React.Component {
+//The Search Page will show when the user clicks on the button on the Home Page
+//It is supposed to search through the list of books and find one that matches your search
+class SearchPage extends React.Component {
   state = {
-    SearchDisplay: []
+    results: [],
+    query: ""
   };
-  searchQuery = query => {
-    if (query !== "") {
-      BooksAPI.search(query).then(books => {
-        if (!books || books.error) this.setState({ SearchDisplay: [] });
-        else {
-          books.map(foundBook => {
-            this.props.books.forEach(book => {
-              if (foundBook.id === book.id) {
-                foundBook.shelf = book.shelf;
-              } else {
-                foundBook.shelf = "none";
-              }
-            });
-            return foundBook;
-          });
-
-          this.setState({ SearchDisplay: books });
+  //the order of which the books show on the shelf
+  shelfOrder = books => {
+    let SearchBooks = this.props.books;
+    books.forEach(book => {
+      book.shelf = "none";
+      SearchBooks.forEach(SearchBook => {
+        if (book.id === SearchBook.id) {
+          book.shelf = SearchBook.shelf;
         }
       });
-    } else {
-      this.setState({ SearchDisplay: [] });
+    });
+    return books;
+  };
+  search = value => {
+    if (value.length) {
+      BooksAPI.search(value).then(books => {
+        if (books.length > 0) {
+          books = this.assignShelf(books);
+          this.setState(() => {
+            return { results: books };
+          });
+        } else {
+          this.setState({ results: [] });
+          console.error("Term is not in the list of books");
+        }
+      });
     }
   };
+  //Adding books to shelves
+  BookAddition = (book, shelf) => {
+    this.props.onChange(book, shelf);
+    book.shelf = shelf;
+    this.forceUpdate();
+  };
+  //The method that handles the variable's change
+  variableUpdate = event => {
+    let variable = event.target.variable;
+    this.setState(() => {
+      return { query: variable };
+    });
+    this.search(variable);
+  };
+  //render function
   render() {
+    //return method
     return (
+      //Search bar
       <div className="search-books">
         <div className="search-books-bar">
-          <Link
-            to={`/`}
-            className="close-search"
-            onClick={() => this.setState({ showSearchPage: false })}>
+          <Link to="/" className="close-search">
             Close
           </Link>
           <div className="search-books-input-wrapper">
             <input
               type="text"
               placeholder="Search by title/author"
-              value={this.props.query}
-              onChange={event => this.searchQuery(event.target.value)}
+              variable={this.state.query}
+              onChange={this.VariableUpdate}
             />
           </div>
-          <div className="search-books-results">
-            <ol className="books-grid">
-              {this.state.SearchDisplay &&
-                this.state.SearchDisplay.map(book => (
-                  <li key={book.id}>
-                    <div className="book">
-                      <div className="book-top">
-                        <div
-                          className="book-cover"
-                          style={{
-                            width: 128,
-                            height: 188,
-                            backgroundImage:
-                              book.imageLinks === undefined
-                                ? `url(http://via.placeholder.com/128x193?text=No%20Cover)`
-                                : `url(${book.imageLinks.thumbnail})`
-                          }}
-                        />
-                        <div className="book-shelf-changer">
-                          <Book
-                            book={book}
-                            updateBook={this.props.updateBook}
-                          />
-                        </div>
-                      </div>
-                      <div className="book-title">{book.title}</div>
-                      <div className="book-authors">{book.author}</div>
-                    </div>
-                  </li>
-                ))}
-            </ol>
-          </div>
+        </div>
+        <div className="search-books-results">
+          <ol className="books-grid">
+            {this.state.query.length > 0 &&
+              this.state.results.map((book, index) => (
+                //Search results under the bar in the search page
+                <Book
+                  book={book}
+                  key={index}
+                  updateBook={shelf => {
+                    this.BookAddition(book, shelf);
+                  }}
+                />
+              ))}
+          </ol>
         </div>
       </div>
     );
