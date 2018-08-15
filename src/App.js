@@ -42,7 +42,7 @@ class App extends React.Component {
         />
         <Route
           //SearchPage Component
-          path="/SearchPage"
+          path="/search"
           render={() => (
             <SearchPage books={this.state.books} onChange={this.ShelfUpdate} />
           )}

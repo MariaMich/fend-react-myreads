@@ -40,7 +40,7 @@ class HomePage extends React.Component {
           </div>
         </div>
         <div className="open-search">
-          <Link to="/SearchPage">Search</Link>
+          <Link to="/search">Search</Link>
         </div>
       </div>
     );
