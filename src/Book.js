@@ -1,13 +1,9 @@
 import React from "react";
 
 class Book extends React.Component {
-  ComponentDidMount() {
-    console.log("Book mounted");
-  }
-
   ShelfPage(book) {
     return (
-      <select onShelfMove={this.ShelfMove} value={book.shelf}>
+      <select onChange={this.ShelfMove} value={book.shelf}>
         <option value="move" disabled>
           Move to...
         </option>
@@ -70,3 +66,4 @@ class Book extends React.Component {
 }
 
 export default Book;
+
