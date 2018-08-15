@@ -16,7 +16,6 @@ class App extends React.Component {
   //Message that will be showed when the app.js runs correctly
   componentDidMount() {
     this.setBooksState();
-    console.log("App mounted");
   }
   //Method that updates the shelf when we move the book
   ShelfUpdate = (book, shelf) => {
@@ -38,17 +37,14 @@ class App extends React.Component {
           exact
           path="/"
           render={() => (
-            <HomePage books={this.state.books} onShelfMove={this.ShelfUpdate} />
+            <HomePage books={this.state.books} onChange={this.ShelfUpdate} />
           )}
         />
         <Route
           //SearchPage Component
           path="/search"
           render={() => (
-            <SearchPage
-              books={this.state.books}
-              onShelfMove={this.ShelfUpdate}
-            />
+            <SearchPage books={this.state.books} onChange={this.ShelfUpdate} />
           )}
         />
       </div>
