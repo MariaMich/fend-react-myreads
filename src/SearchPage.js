@@ -22,17 +22,16 @@ class SearchPage extends React.Component {
     });
     return books;
   };
-  search = value => {
-    if (value.length) {
-      BooksAPI.search(value).then(books => {
-        if (books.length > 0) {
-          books = this.assignShelf(books);
+  search = query => {
+    if (query !== "") {
+      BooksAPI.search(query).then(books => {
+        if (!books || books.error) {
+          books = this.ShelfOrder(books);
           this.setState(() => {
-            return { results: books };
+            return { results: [] };
           });
         } else {
-          this.setState({ results: [] });
-          console.error("Term is not in the list of books");
+          this.setState({ results: books });
         }
       });
     }
@@ -45,7 +44,7 @@ class SearchPage extends React.Component {
   };
   //The method that handles the variable's change
   variableUpdate = event => {
-    let variable = event.target.variable;
+    let variable = event.target.value;
     this.setState(() => {
       return { query: variable };
     });
@@ -66,7 +65,7 @@ class SearchPage extends React.Component {
               type="text"
               placeholder="Search by title/author"
               variable={this.state.query}
-              onChange={this.VariableUpdate}
+              onChange={this.variableUpdate}
             />
           </div>
         </div>
@@ -78,7 +77,7 @@ class SearchPage extends React.Component {
                 <Book
                   book={book}
                   key={index}
-                  updateBook={shelf => {
+                  onUpdate={shelf => {
                     this.BookAddition(book, shelf);
                   }}
                 />
