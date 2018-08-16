@@ -3,8 +3,8 @@ import Book from "./Book.js";
 
 class Shelf extends React.Component {
   //The method that's called when a book changes shelves
-  shelfNewMove = (book, shelf) => {
-    this.props.ShelfUpdate(book, shelf);
+  ShelfNewMove = (book, shelf) => {
+    this.props.moveShelf(book, shelf);
   };
 
   render() {
@@ -19,7 +19,7 @@ class Shelf extends React.Component {
               <Book
                 book={book}
                 key={index}
-                updateBook={shelf => {
+                onUpdate={shelf => {
                   this.ShelfNewMove(book, shelf);
                 }}
               />
