@@ -3,7 +3,7 @@ import React from "react";
 class Book extends React.Component {
   ShelfPage(book) {
     return (
-      <select onChange={this.ShelfMove} value={book.shelf}>
+      <select onChange={this.moveShelf} value={book.shelf}>
         <option value="move" disabled>
           Move to...
         </option>
@@ -33,7 +33,7 @@ class Book extends React.Component {
     );
   }
 
-  ShelfUpdate = e => {
+  moveShelf = e => {
     this.props.onUpdate(e.target.value);
   };
 
@@ -66,4 +66,3 @@ class Book extends React.Component {
 }
 
 export default Book;
-
