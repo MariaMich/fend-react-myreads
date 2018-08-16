@@ -13,12 +13,12 @@ class App extends React.Component {
       books: []
     };
   }
-  //Message that will be showed when the app.js runs correctly
+
   componentDidMount() {
     this.setBooksState();
   }
   //Method that updates the shelf when we move the book
-  ShelfUpdate = (book, shelf) => {
+  moveShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then(() => {
       this.setBooksState();
     });
@@ -37,14 +37,14 @@ class App extends React.Component {
           exact
           path="/"
           render={() => (
-            <HomePage books={this.state.books} onChange={this.ShelfUpdate} />
+            <HomePage books={this.state.books} onChange={this.moveShelf} />
           )}
         />
         <Route
           //SearchPage Component
           path="/search"
           render={() => (
-            <SearchPage books={this.state.books} onChange={this.ShelfUpdate} />
+            <SearchPage books={this.state.books} onChange={this.moveShelf} />
           )}
         />
       </div>
